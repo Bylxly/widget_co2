@@ -15,7 +15,8 @@ public class MyAppWidgetProvider extends AppWidgetProvider {
 
     public static final String ACTION_UPDATE_WIDGET = "com.example.neuneuneu.ACTION_UPDATE_WIDGET";
 
-    public static String CO2_Value;
+    public static String CO2_Value = "500";
+    public static String Temp_Value =  "20";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -24,6 +25,7 @@ public class MyAppWidgetProvider extends AppWidgetProvider {
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
             int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, MyAppWidgetProvider.class));
             CO2_Value = intent.getStringExtra("CO2_Value");
+            Temp_Value =  intent.getStringExtra("Temp_Value");
             onUpdate(context, appWidgetManager, appWidgetIds);
 
             Log.d("WidgetUpdateReceiver", Arrays.toString(appWidgetIds));
@@ -38,6 +40,7 @@ public class MyAppWidgetProvider extends AppWidgetProvider {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.homeassistant);
         views.setTextViewText(R.id.appwidget_text, widgetText);
         views.setTextViewText(R.id.value, CO2_Value);
+        views.setTextViewText(R.id.value2, Temp_Value);
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }

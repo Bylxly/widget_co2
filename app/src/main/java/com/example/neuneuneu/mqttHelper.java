@@ -19,7 +19,8 @@ public class mqttHelper {
     private MqttAndroidClient mqttAndroidClient;
     private String serverUri =  "tcp://homeassistant.local:1883";
 
-    private String topic = "co2data/topic";
+    private String topic1 = "co2-tester/sensor/co2_value_-_a403/state";
+    private String topic2 = "co2-tester/sensor/temperatur_-_a403/state";
     private String clientId = "Test_tafel";
     private String username = "co2messer";
     private String password = "p7B7g3CA";
@@ -27,6 +28,9 @@ public class mqttHelper {
     private Context context;
 
     public static final String ACTION_UPDATE_WIDGET = "com.example.neuneuneu.ACTION_UPDATE_WIDGET";
+
+    private static String CO2_Value;
+    private static String Temp_Value;
 
 
     public mqttHelper(Context context) {
@@ -45,7 +49,15 @@ public class mqttHelper {
                 // Erstellen Sie einen Intent mit der Aktion UPDATE_ACTION
                 Intent intent = new Intent(context, MyAppWidgetProvider.class);
                 intent.setAction(mqttHelper.ACTION_UPDATE_WIDGET);
-                intent.putExtra("CO2_Value", new String(message.getPayload()));
+
+                if (topic.equals(topic1)) {
+                    CO2_Value = new String(message.getPayload());
+                }
+                else if (topic.equals(topic2)) {
+                    Temp_Value = new String(message.getPayload());
+                }
+                intent.putExtra("CO2_Value", CO2_Value);
+                intent.putExtra("Temp_Value", Temp_Value);
                 context.sendBroadcast(intent);
                 Log.d("MqttHelper", "messageArrived");
             }
@@ -83,7 +95,7 @@ public class mqttHelper {
     }
 
     private void subscribeToTopic() {
-        mqttAndroidClient.subscribe(topic, 0, null, new IMqttActionListener() {
+        mqttAndroidClient.subscribe(topic1, 0, null, new IMqttActionListener() {
             @Override
             public void onSuccess(IMqttToken asyncActionToken) {
                 Log.d("MqttHelper", "Erfolgreich Abonniert");
@@ -95,6 +107,17 @@ public class mqttHelper {
                 Log.d("MqttHelper", "Fehlgeschlagenes Abonnement");
             }
         });
+        mqttAndroidClient.subscribe(topic2, 0, null, new IMqttActionListener() {
+            @Override
+            public void onSuccess(IMqttToken asyncActionToken) {
+                Log.d("MqttHelper", "Erfolgreich Abonniert");
+            }
 
+            @Override
+            public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                // Fehlgeschlagenes Abonnement
+                Log.d("MqttHelper", "Fehlgeschlagenes Abonnement");
+            }
+        });
     }
 }

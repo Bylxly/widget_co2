@@ -19,14 +19,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        createMQTT();
-    }
-
-    public void createMQTT() {
-        Context context = this;
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.homeassistant);
-        new mqttHelper(context);
+        new mqttHelper(this);
     }
 
     public void onClick(View view) {

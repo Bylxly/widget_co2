@@ -4,5 +4,6 @@
     <string name="appwidget_text">Werte:</string>
     <string name="add_widget">Add widget</string>
     <string name="app_widget_description">This is an app widget description</string>
-    <string name="value">500</string>
+    <string name="co2value">500</string>
+    <string name="tempvalue">20</string>
 </resources>

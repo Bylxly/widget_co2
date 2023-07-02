@@ -30,7 +30,15 @@
             style="@style/Widget.NEUNEUNEU.AppWidget.InnerView"
             android:layout_width="968dp"
             android:layout_height="379dp"
-            android:text="@string/value"
+            android:text="@string/co2value"
+            android:textSize="150sp" />
+
+        <TextView
+            android:id="@+id/value2"
+            style="@style/Widget.NEUNEUNEU.AppWidget.InnerView"
+            android:layout_width="962dp"
+            android:layout_height="379dp"
+            android:text="@string/tempvalue"
             android:textSize="150sp" />
 
     </LinearLayout>
