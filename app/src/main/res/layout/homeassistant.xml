@@ -1,6 +1,6 @@
+<!--xmlns:tools="http://schemas.android.com/tools"-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     style="@style/Widget.NEUNEUNEU.AppWidget.Container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -38,7 +38,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView5"
             app:layout_constraintVertical_bias="0.096" />
 
-        <!--Co2 Wert-->
+        <!--Temperatur Container-->
         <TextView
             android:id="@+id/textView7"
             android:layout_width="376dp"
@@ -51,12 +51,14 @@
             app:layout_constraintTop_toBottomOf="@+id/textView5"
             app:layout_constraintVertical_bias="0.903" />
 
-        <!--Temperatur Container-->
+        <!--Co2 Wert-->
         <TextView
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/co2value"
+            android:textSize="50sp"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="@+id/textView6"
             app:layout_constraintEnd_toEndOf="@+id/textView6"
             app:layout_constraintStart_toStartOf="@+id/textView6"
@@ -68,6 +70,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/tempvalue"
+            android:textSize="50sp"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="@+id/textView7"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
