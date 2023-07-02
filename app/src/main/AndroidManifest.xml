@@ -26,18 +26,25 @@
                 android:resource="@xml/homeassistant_info" />
         </receiver>
 
+        <!--
+            <activity
+                android:name=".MainActivity"
+                android:exported="true">
+                <intent-filter>
+                    <action android:name="android.intent.action.MAIN" />
+                    <category android:name="android.intent.category.LAUNCHER" />
+                </intent-filter>
+            </activity>
+        -->
+
         <activity
-            android:name=".MainActivity"
+            android:name=".WidgetConfigurationActivity"
+            android:label="Widget Configuration"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
         </activity>
-
-        <service android:name="org.eclipse.paho.android.service.MqttService">
-        </service>
-
     </application>
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

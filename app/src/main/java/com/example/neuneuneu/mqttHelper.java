@@ -7,7 +7,6 @@ import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
-import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import android.content.Context;
@@ -31,6 +30,7 @@ public class mqttHelper {
 
     private static String CO2_Value;
     private static String Temp_Value;
+    public static boolean status = false;
 
 
     public mqttHelper(Context context) {
@@ -42,6 +42,7 @@ public class mqttHelper {
             @Override
             public void connectionLost(Throwable cause) {
                 Log.d("MqttHelper", "connectionLost: " + cause.getMessage());
+                status = false;
             }
 
             @Override
@@ -83,12 +84,14 @@ public class mqttHelper {
             public void onSuccess(IMqttToken asyncActionToken) {
                 subscribeToTopic();
                 Log.d("MqttHelper", "onSuccess");
+                status = true;
             }
 
             @Override
             public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
                 // Verbindungsfehlerbehandlung
                 Log.d("MqttHelper", exception.toString());
+                status = false;
             }
         });
 

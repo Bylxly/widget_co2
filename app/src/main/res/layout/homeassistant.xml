@@ -1,17 +1,18 @@
-<!--xmlns:tools="http://schemas.android.com/tools"-->
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     style="@style/Widget.NEUNEUNEU.AppWidget.Container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/material_dynamic_neutral_variant70"
     android:theme="@style/Theme.NEUNEUNEU.AppWidgetContainer">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="395dp"
-        android:layout_height="586dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <!--Raum-->
         <TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
@@ -19,62 +20,36 @@
             android:layout_marginTop="28dp"
             android:text="@string/raum"
             android:textColor="@color/white"
-            android:textSize="50sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textSize="50sp" />
 
-        <!--Co2 Wert Container-->
         <TextView
             android:id="@+id/textView6"
             android:layout_width="376dp"
             android:layout_height="201dp"
-            android:background="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/textView5"
-            app:layout_constraintHorizontal_bias="0.502"
-            app:layout_constraintStart_toStartOf="@+id/textView5"
-            app:layout_constraintTop_toBottomOf="@+id/textView5"
-            app:layout_constraintVertical_bias="0.096" />
+            android:background="@color/white" />
 
-        <!--Temperatur Container-->
+        <TextView
+            android:id="@+id/tempValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tempvalue"
+            android:textColor="@color/black"
+            android:textSize="50sp" />
+
         <TextView
             android:id="@+id/textView7"
             android:layout_width="376dp"
             android:layout_height="201dp"
-            android:background="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/textView5"
-            app:layout_constraintHorizontal_bias="0.502"
-            app:layout_constraintStart_toStartOf="@+id/textView5"
-            app:layout_constraintTop_toBottomOf="@+id/textView5"
-            app:layout_constraintVertical_bias="0.903" />
+            android:background="@color/white" />
 
-        <!--Co2 Wert-->
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/co2Value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/co2value"
-            android:textSize="50sp"
             android:textColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="@+id/textView6"
-            app:layout_constraintEnd_toEndOf="@+id/textView6"
-            app:layout_constraintStart_toStartOf="@+id/textView6"
-            app:layout_constraintTop_toTopOf="@+id/textView6" />
+            android:textSize="50sp" />
 
-        <!--Temperatur-->
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tempvalue"
-            android:textSize="50sp"
-            android:textColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="@+id/textView7"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView7" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
 </RelativeLayout>

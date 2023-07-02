@@ -1,5 +1,6 @@
 package com.example.neuneuneu;
 
+import android.appwidget.AppWidgetHost;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.BroadcastReceiver;
@@ -12,35 +13,35 @@ import android.widget.RemoteViews;
 import java.util.Arrays;
 
 public class MyAppWidgetProvider extends AppWidgetProvider {
-
     public static final String ACTION_UPDATE_WIDGET = "com.example.neuneuneu.ACTION_UPDATE_WIDGET";
-
+    private static final String APPWIDGET_UPDATE = "android.appwidget.action.APPWIDGET_UPDATE";
     public static String CO2_Value = "500";
     public static String Temp_Value =  "20";
 
+    private AppWidgetHost appWidgetHost;
+
     @Override
     public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
 
-        if (intent.getAction().equals(ACTION_UPDATE_WIDGET)) {
+        if (intent.getAction().equals(ACTION_UPDATE_WIDGET)){
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
             int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, MyAppWidgetProvider.class));
             CO2_Value = intent.getStringExtra("CO2_Value");
-            Temp_Value =  intent.getStringExtra("Temp_Value");
+            Temp_Value = intent.getStringExtra("Temp_Value");
             onUpdate(context, appWidgetManager, appWidgetIds);
 
             Log.d("WidgetUpdateReceiver", Arrays.toString(appWidgetIds));
-
         }
+        Log.d("WidgetUpdateReceiver", intent.getAction());
     }
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
-        CharSequence widgetText = context.getString(R.string.appwidget_text);
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.homeassistant);
-        views.setTextViewText(R.id.appwidget_text, widgetText);
-        views.setTextViewText(R.id.value, CO2_Value);
-        views.setTextViewText(R.id.value2, Temp_Value);
+        views.setTextViewText(R.id.co2Value, CO2_Value);
+        views.setTextViewText(R.id.tempValue, Temp_Value);
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
@@ -55,11 +56,18 @@ public class MyAppWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onEnabled(Context context) {
+        super.onEnabled(context);
         // Enter relevant functionality for when the first widget is created
+        Log.d("MyAppWidgetProvider", "onEnabled called");
+        new mqttHelper(context);
     }
 
     @Override
     public void onDisabled(Context context) {
         // Enter relevant functionality for when the last widget is disabled
+    }
+
+    @Override
+    public void onDeleted(Context context, int[] appWidgetIds) {
     }
 }
