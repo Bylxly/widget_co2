@@ -3,53 +3,57 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/Widget.NEUNEUNEU.AppWidget.Container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/material_dynamic_neutral_variant70"
-    android:theme="@style/Theme.NEUNEUNEU.AppWidgetContainer">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:theme="@style/Theme.NEUNEUNEU.AppWidgetContainer"
+
+    >
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/black">
 
+        <!-- Raum -->
         <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
+            android:id="@+id/raum"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
+
             android:text="@string/raum"
             android:textColor="@color/white"
-            android:textSize="50sp" />
 
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="376dp"
-            android:layout_height="201dp"
-            android:background="@color/white" />
+            android:textAlignment="center"/>
 
+        <!-- Co2 -->
+
+        <!-- Temp -->
         <TextView
-            android:id="@+id/tempValue"
-            android:layout_width="wrap_content"
+            android:id="@+id/co2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
+            android:layout_margin="6dp"
+            android:background="@color/white"
+            android:padding="10dp"
+
+            android:text="@string/co2value"
+            android:textAlignment="center"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/temp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
             android:text="@string/tempvalue"
             android:textColor="@color/black"
-            android:textSize="50sp" />
+            android:background="@color/white"
 
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="376dp"
-            android:layout_height="201dp"
-            android:background="@color/white" />
-
-        <TextView
-            android:id="@+id/co2Value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/co2value"
-            android:textColor="@color/black"
-            android:textSize="50sp" />
-
+            android:textAlignment="center"
+            android:layout_margin="6dp"
+            android:padding="10dp"/>
     </LinearLayout>
-
 </RelativeLayout>
