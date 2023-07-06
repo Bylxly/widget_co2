@@ -1,9 +1,11 @@
 package com.example.neuneuneu;
 
+import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.Service;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -21,11 +23,13 @@ import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
+import java.util.List;
+
 public class MqttService extends Service {
 
     private static final String CHANNEL_ID = "ForegroundServiceChannel";
     private MqttAndroidClient mqttAndroidClient;
-    private String serverUri = "tcp://192.168.178.186:1883";
+    private String serverUri = "tcp://homeassistant.local:1883";
 
     private String topic1 = "co2-tester/sensor/co2_value_-_a403/state";
     private String topic2 = "co2-tester/sensor/temperatur_-_a403/state";
@@ -62,7 +66,51 @@ public class MqttService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        int serviceId = intent.getIntExtra("serviceId", -1);
+
+        // Überprüfung, ob Service bereits mit dieser ID läuft
+        if (isServiceRunning(this, serviceId)) {
+            // Service läuft bereits
+            return START_NOT_STICKY;
+        }
+
+        // Service-Logik hier
+
         return START_STICKY;
+    }
+
+    public boolean isServiceRunning(Context context, int serviceId) {
+        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningServiceInfo> runningServices = manager.getRunningServices(Integer.MAX_VALUE);
+
+        for (ActivityManager.RunningServiceInfo service : runningServices) {
+            ComponentName componentName = service.service;
+            if (componentName.getClassName().equals(MqttService.class.getName())) {
+                // Service gefunden, überprüfe die ID
+                int runningServiceId = serviceIdFromComponentName(componentName);
+                if (runningServiceId == serviceId) {
+                    // Service mit der angegebenen ID läuft bereits
+                    return true;
+                }
+            }
+        }
+
+        // Service mit der angegebenen ID wurde nicht gefunden
+        return false;
+    }
+
+    private int serviceIdFromComponentName(ComponentName componentName) {
+        // Extrahiere die ID aus dem Komponentennamen
+        String[] split = componentName.getShortClassName().split("_");
+        if (split.length > 1) {
+            try {
+                return Integer.parseInt(split[1]);
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return -1;
     }
 
     @Override
@@ -94,8 +142,8 @@ public class MqttService extends Service {
                 }
                 intent.putExtra("CO2_Value", CO2_Value);
                 intent.putExtra("Temp_Value", Temp_Value);
-                sendBroadcast(intent);
-                Log.d("MqttHelper", "messageArrived");
+                getApplicationContext().sendBroadcast(intent);
+                Log.d("MqttHelper", CO2_Value);
             }
 
             @Override

@@ -1,5 +1,6 @@
 package com.example.neuneuneu;
 
+import android.app.ActivityManager;
 import android.appwidget.AppWidgetHost;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -14,7 +15,6 @@ import java.util.Arrays;
 
 public class MyAppWidgetProvider extends AppWidgetProvider {
     public static final String ACTION_UPDATE_WIDGET = "com.example.neuneuneu.ACTION_UPDATE_WIDGET";
-    private static final String APPWIDGET_UPDATE = "android.appwidget.action.APPWIDGET_UPDATE";
     public static String CO2_Value = "500";
     public static String Temp_Value =  "20";
 
@@ -23,6 +23,8 @@ public class MyAppWidgetProvider extends AppWidgetProvider {
     @Override
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
+
+        Log.d("MyAppWidgetProvider", "onReceive called");
 
         if (intent.getAction().equals(ACTION_UPDATE_WIDGET)){
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
@@ -33,7 +35,6 @@ public class MyAppWidgetProvider extends AppWidgetProvider {
 
             Log.d("WidgetUpdateReceiver", Arrays.toString(appWidgetIds));
         }
-        Log.d("WidgetUpdateReceiver", intent.getAction());
     }
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
@@ -42,8 +43,8 @@ public class MyAppWidgetProvider extends AppWidgetProvider {
         context.startForegroundService(serviceIntent);
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.homeassistant);
-        views.setTextViewText(R.id.co2Value, CO2_Value);
-        views.setTextViewText(R.id.tempValue, Temp_Value);
+        views.setTextViewText(R.id.co2, CO2_Value);
+        views.setTextViewText(R.id.temp, Temp_Value);
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
@@ -61,7 +62,7 @@ public class MyAppWidgetProvider extends AppWidgetProvider {
         super.onEnabled(context);
         // Enter relevant functionality for when the first widget is created
         Log.d("MyAppWidgetProvider", "onEnabled called");
-        new mqttHelper(context);
+        //new mqttHelper(context);
     }
 
     @Override
