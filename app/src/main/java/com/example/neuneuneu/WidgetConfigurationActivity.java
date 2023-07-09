@@ -17,7 +17,7 @@ public class WidgetConfigurationActivity extends Activity {
         super.onCreate(savedInstanceState);
         // Hier können Sie die Konfiguration für Ihr Widget festlegen
         Log.d("WidgetConfigurationActivity","oncereater");
-
+        new mqttHelper(getApplicationContext());
         // Speichern Sie die Einstellungen und beenden Sie die Aktivität
         finish();
     }

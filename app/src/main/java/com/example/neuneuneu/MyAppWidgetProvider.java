@@ -39,8 +39,6 @@ public class MyAppWidgetProvider extends AppWidgetProvider {
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
-        Intent serviceIntent = new Intent(context, MqttService.class);
-        context.startForegroundService(serviceIntent);
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.homeassistant);
         views.setTextViewText(R.id.co2, CO2_Value);
