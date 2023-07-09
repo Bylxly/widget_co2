@@ -15,16 +15,16 @@ import android.util.Log;
 
 public class mqttHelper {
 
-    private MqttAndroidClient mqttAndroidClient;
-    private String serverUri =  "tcp://homeassistant.local:1883";
+    private final MqttAndroidClient mqttAndroidClient;
+    private final String serverUri =  "tcp://homeassistant.local:1883";
 
-    private String topic1 = "co2-tester/sensor/co2_value_-_a403/state";
-    private String topic2 = "co2-tester/sensor/temperatur_-_a403/state";
-    private String clientId = "Test_tafel";
-    private String username = "co2messer";
-    private String password = "p7B7g3CA";
+    private final String topic1 = "co2-tester/sensor/co2_value_-_a403/state";
+    private final String topic2 = "co2-tester/sensor/temperatur_-_a403/state";
+    private final String clientId = "Test_tafel";
+    private final String username = "co2messer";
+    private final String password = "p7B7g3CA";
 
-    private Context context;
+    private final Context context;
 
     public static final String ACTION_UPDATE_WIDGET = "com.example.neuneuneu.ACTION_UPDATE_WIDGET";
 
